@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Relatório Financeiro - FRITTELLA</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+    integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+</head>
+<body>
+  <div class="container">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+      <a class="navbar-brand" href="/">
+        <img src="/img/logo.png" alt="Logo" width="30" height="30" class="d-inline-block align-top">
+        FRITTELLA
+      </a>
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item"><a class="nav-link" href="/produtos">Produtos</a></li>
+          <li class="nav-item"><a class="nav-link" href="/vendas">Vendas</a></li>
+          <li class="nav-item"><a class="nav-link" href="/relatorio">Relatório</a></li>
+          <li class="nav-item"><a class="nav-link" href="/gastos">Gastos</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Título -->
+    <h1 class="mb-4">Relatório Financeiro</h1>
+
+    <!-- Tabela de Relatório -->
+    <div class="table-responsive mb-4">
+      <table class="table table-bordered table-hover table-striped">
+        <thead class="thead-dark">
+          <tr>
+            <th>Data</th>
+            <th>Vendas (R$)</th>
+            <th>Gastos (R$)</th>
+            <th>Lucro (R$)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% for (let data in resumo) { %>
+            <tr>
+              <td><%= data %></td>
+              <td>R$ <%= resumo[data].vendas.toFixed(2) %></td>
+              <td>R$ <%= resumo[data].gastos.toFixed(2) %></td>
+              <td>R$ <%= (resumo[data].vendas - resumo[data].gastos).toFixed(2) %></td>
+            </tr>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Gráfico -->
+    <div class="card mb-4">
+      <div class="card-body">
+        <canvas id="grafico" height="100"></canvas>
+      </div>
+    </div>
+
+    <!-- Botão para PDF -->
+    <div class="text-right mb-5">
+      <a href="/relatorio/pdf" target="_blank" class="btn btn-outline-secondary">
+        📄 Baixar PDF
+      </a>
+    </div>
+  </div>
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    const resumo = <%- JSON.stringify(resumo) %>;
+
+    const labels = Object.keys(resumo).sort();
+    const vendas = labels.map(d => resumo[d].vendas);
+    const gastos = labels.map(d => resumo[d].gastos);
+    const lucro = labels.map(d => resumo[d].vendas - resumo[d].gastos);
+
+    const ctx = document.getElementById('grafico').getContext('2d');
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels,
+        datasets: [
+          {
+            label: 'Vendas',
+            data: vendas,
+            borderColor: 'green',
+            backgroundColor: 'rgba(0, 128, 0, 0.1)',
+            fill: true
+          },
+          {
+            label: 'Gastos',
+            data: gastos,
+            borderColor: 'red',
+            backgroundColor: 'rgba(255, 0, 0, 0.1)',
+            fill: true
+          },
+          {
+            label: 'Lucro',
+            data: lucro,
+            borderColor: 'blue',
+            backgroundColor: 'rgba(0, 0, 255, 0.1)',
+            fill: true
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          title: {
+            display: true,
+            text: 'Desempenho Financeiro Diário'
+          },
+          legend: {
+            position: 'top'
+          }
+        },
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>

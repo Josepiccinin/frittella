@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vendas - FRITTELLA</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+    integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+</head>
+
+<body>
+  <div class="container">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+      <a class="navbar-brand" href="/">
+        <img src="/img/logo.png" alt="Logo" width="30" height="30" class="d-inline-block align-top">
+        FRITTELLA
+      </a>
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item"><a class="nav-link" href="/produtos">Produtos</a></li>
+          <li class="nav-item"><a class="nav-link" href="/vendas">Vendas</a></li>
+          <li class="nav-item"><a class="nav-link" href="/relatorio">Relatório</a></li>
+          <li class="nav-item"><a class="nav-link" href="/gastos">Gastos</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Título -->
+    <h1 class="mb-4">Registrar Venda com Múltiplos Itens</h1>
+
+    <!-- Formulário de Venda -->
+    <div class="card mb-5">
+      <div class="card-body">
+        <form method="POST" action="/vendas/add">
+          <div class="form-group">
+            <label for="dataHora">Data e Hora da Venda:</label>
+            <input type="datetime-local" class="form-control" name="dataHora" id="dataHora" required>
+          </div>
+
+          <div id="itens">
+            <div class="form-row align-items-end mb-3 item">
+              <div class="col-md-6">
+                <label>Produto</label>
+                <select name="produto[]" class="form-control">
+                  <% produtos.forEach(p => { %>
+                    <option value="<%= p.nome %>"><%= p.nome %></option>
+                  <% }) %>
+                </select>
+              </div>
+              <div class="col-md-4">
+                <label>Quantidade</label>
+                <input type="number" name="quantidade[]" class="form-control" placeholder="Quantidade" required>
+              </div>
+            </div>
+          </div>
+
+          <button type="button" class="btn btn-outline-primary mb-3" onclick="addItem()">+ Adicionar Item</button>
+          <br>
+          <button type="submit" class="btn btn-success">Finalizar Venda</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Script para adicionar mais itens -->
+  <script>
+    function addItem() {
+      const div = document.createElement('div');
+      div.classList.add('form-row', 'align-items-end', 'mb-3', 'item');
+      div.innerHTML = `
+        <div class="col-md-6">
+          <label>Produto</label>
+          <select name="produto[]" class="form-control">
+            <% produtos.forEach(p => { %>
+              <option value="<%= p.nome %>"><%= p.nome %></option>
+            <% }) %>
+          </select>
+        </div>
+        <div class="col-md-4">
+          <label>Quantidade</label>
+          <input type="number" name="quantidade[]" class="form-control" placeholder="Quantidade" required>
+        </div>
+      `;
+      document.getElementById('itens').appendChild(div);
+    }
+  </script>
+</body>
+
+</html>

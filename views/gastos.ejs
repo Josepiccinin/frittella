@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gastos - FRITTELLA</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+    integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+</head>
+
+<body>
+  <div class="container">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+      <a class="navbar-brand" href="/">
+        <img src="/img/logo.png" alt="Logo" width="30" height="30" class="d-inline-block align-top">
+        FRITTELLA
+      </a>
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item"><a class="nav-link" href="/produtos">Produtos</a></li>
+          <li class="nav-item"><a class="nav-link" href="/vendas">Vendas</a></li>
+          <li class="nav-item"><a class="nav-link" href="/relatorio">Relatório</a></li>
+          <li class="nav-item"><a class="nav-link active" href="/gastos">Gastos</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Título -->
+    <h1 class="mb-4">Registro de Gastos</h1>
+
+    <!-- Formulário de Gasto -->
+    <form method="POST" action="/gastos/add" class="mb-5">
+      <div class="form-row">
+        <div class="form-group col-md-4">
+          <input type="text" class="form-control" name="descricao" placeholder="Descrição" required>
+        </div>
+        <div class="form-group col-md-3">
+          <input type="number" class="form-control" name="valor" step="0.01" placeholder="Valor (R$)" required>
+        </div>
+        <div class="form-group col-md-3">
+          <input type="datetime-local" class="form-control" name="dataHora" required>
+        </div>
+        <div class="form-group col-md-2">
+          <button type="submit" class="btn btn-primary btn-block">Registrar</button>
+        </div>
+      </div>
+    </form>
+
+    <!-- Lista de Gastos -->
+    <h2 class="mb-3">Lista de Gastos</h2>
+    <div class="table-responsive mb-5">
+      <table class="table table-bordered table-hover table-striped">
+        <thead class="thead-dark">
+          <tr>
+            <th>Data e Hora</th>
+            <th>Descrição</th>
+            <th>Valor (R$)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% gastos.forEach(g => { %>
+            <tr>
+              <td><%= g.dataHora %></td>
+              <td><%= g.descricao %></td>
+              <td>R$ <%= g.valor.toFixed(2) %></td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>
+
+</html>

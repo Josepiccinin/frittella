@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - FRITTELLA</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+    integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+</head>
+
+<body>
+  <div class="container">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+      <a class="navbar-brand" href="/">
+        <img src="/img/logo.png" alt="Logo" width="30" height="30" class="d-inline-block align-top">
+        FRITTELLA
+      </a>
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item"><a class="nav-link" href="/produtos">Produtos</a></li>
+          <li class="nav-item"><a class="nav-link" href="/vendas">Vendas</a></li>
+          <li class="nav-item"><a class="nav-link" href="/relatorio">Relatório</a></li>
+          <li class="nav-item"><a class="nav-link" href="/gastos">Gastos</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Título -->
+    <h1 class="text-center mb-5">Dashboard Frittella</h1>
+
+    <!-- Cartões de Acesso -->
+    <div class="row">
+      <div class="col-md-3 mb-4">
+        <a href="/produtos" class="text-decoration-none">
+          <div class="card shadow-sm text-center h-100">
+            <div class="card-body">
+              <h5 class="card-title">📦 Produtos</h5>
+              <p class="card-text">Gerencie os itens do estoque</p>
+            </div>
+          </div>
+        </a>
+      </div>
+      <div class="col-md-3 mb-4">
+        <a href="/vendas" class="text-decoration-none">
+          <div class="card shadow-sm text-center h-100">
+            <div class="card-body">
+              <h5 class="card-title">💰 Vendas</h5>
+              <p class="card-text">Registrar e visualizar vendas</p>
+            </div>
+          </div>
+        </a>
+      </div>
+      <div class="col-md-3 mb-4">
+        <a href="/relatorio" class="text-decoration-none">
+          <div class="card shadow-sm text-center h-100">
+            <div class="card-body">
+              <h5 class="card-title">📊 Relatório</h5>
+              <p class="card-text">Acompanhe o desempenho financeiro</p>
+            </div>
+          </div>
+        </a>
+      </div>
+      <div class="col-md-3 mb-4">
+        <a href="/gastos" class="text-decoration-none">
+          <div class="card shadow-sm text-center h-100">
+            <div class="card-body">
+              <h5 class="card-title">📉 Gastos</h5>
+              <p class="card-text">Controle as despesas do negócio</p>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</body>
+
+</html>
